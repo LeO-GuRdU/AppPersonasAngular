@@ -49,4 +49,22 @@ export class LoginService{
     getIdToken(){
         return this.token;
     }
+
+    isAutenticado(){
+      return this.token != null;
+    }
+
+    logout(){
+      const auth = getAuth();
+      auth.signOut().then(
+        () => {
+          //Para poder asignar un tipo null a cualquier variable 
+          //se debe agregar: "strictNullChecks": false en tsconfig.json
+          this.token = null;
+          this.router.navigate(['login']);
+
+        }
+      ).catch( error => console.log("Error de logout: " + console.error())
+      )
+    }
 }
